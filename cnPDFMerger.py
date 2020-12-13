@@ -9,10 +9,12 @@ class mainmergerui(pdfmergerui.MainFrame):
     docstring
     """
     def guessname(self, event):
-        if self.m_filePicker1.GetPath():
-            pass
+        if not self.m_filePicker1.GetPath():
+            self.m_filePicker1.SetFocusFromKbd()
+            return
         if not self.m_filePicker2.GetPath():
-            pass
+            self.m_filePicker2.SetFocusFromKbd()
+            return
         pdf1 = self.m_filePicker1.GetPath()
         if pdf1:
             path = os.path.dirname(pdf1)
@@ -27,10 +29,13 @@ class mainmergerui(pdfmergerui.MainFrame):
         rev2 = self.m_checkBox2.GetValue()
         mode = self.m_radioBox1.GetSelection()
         if not pdf1:
+            self.m_filePicker1.SetFocusFromKbd()
             return
         if not pdf2:
+            self.m_filePicker2.SetFocusFromKbd()
             return
         if not pdf3:
+            self.m_filePicker3.SetFocusFromKbd()
             return
         #print(pdf1,pdf2,pdf3,rev1,rev2,mode)
         pdfmerger.merge_pdfs(pdf1,rev1,pdf2,rev2,mode,pdf3)
